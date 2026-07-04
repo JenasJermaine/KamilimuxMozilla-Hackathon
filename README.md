@@ -94,25 +94,30 @@ For full setup details, see [SETUP.md](SETUP.md).
 
 ```
 .
-├── README.md                        ← You are here
-├── SETUP.md                         ← Full setup guide
+├── README.md
+├── SETUP.md                              ← Full setup guide for VM + Windows host
+├── requirements.txt                      ← Python + system dependency listing
+├── .gitignore
+├── LICENSE
+│
 ├── docs/
-│   ├── PWD_Connectivity_Buildathon_Build_Log.docx
-│   └── configs/
-│       ├── extensions.conf          ← Asterisk dialplan
-│       └── pjsip.conf               ← SIP endpoint config
+│   ├── problem-statement.md              ← Detailed problem breakdown
+│   ├── PWD_Connectivity_Buildathon_Build_Log.docx  ← Prep-day build log
+│   ├── architecture.png                  ← System architecture diagram
+│   └── configs/                          ← Asterisk reference configs
+│       ├── extensions.conf               ← Dialplan (extensions 100 & 200)
+│       └── pjsip.conf                    ← SIP endpoint (6001)
+│
 ├── src/
-│   ├── scripts/
-│   │   ├── fetch_and_speak.py       ← IVR pipeline (dial 100)
-│   │   └── transcribe_and_speak.py  ← Voice-to-speech pipeline (dial 200)
-│   └── configuration/
+│   ├── scripts/                          ← Python pipeline scripts
+│   │   ├── fetch_and_speak.py            ← Fixed-topic IVR pipeline (dial 100)
+│   │   └── transcribe_and_speak.py       ← Voice-input pipeline (dial 200)
+│   └── configuration/                    ← Copies for deployment
 │       ├── extensions.conf
 │       └── pjsip.conf
-├── data/
-│   └── civic_content_sample.json    ← Sample Firestore civic data
-├── requirements.txt
-├── .gitignore
-└── LICENSE
+│
+└── data/
+    └── civic_content_sample.json         ← Sample Firestore document (disability_rights)
 ```
 
 ## Approach & Architecture
