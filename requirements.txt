@@ -1,0 +1,40 @@
+# =============================================================================
+# PWD Connectivity — Full Requirements
+# =============================================================================
+# This project spans two machines: an Ubuntu 24 VM (Asterisk PBX server) and a
+# Windows host (Ollama AI). Each entry below is tagged with where it belongs.
+# =============================================================================
+
+# ---- Python Packages (VM) ------------------------------------------------
+# Install with: pip install -r requirements.txt
+firebase-admin          # Firestore client — fetches pre-approved civic content
+requests                # HTTP client — calls Ollama API on the Windows host
+faster-whisper          # Speech-to-text — transcribes caller speech (CPU-optimized)
+piper-tts               # Neural TTS — generates natural-sounding speech output
+
+# ---- System Packages (VM — apt install) ----------------------------------
+# asterisk               # Open-source PBX — handles IVR calls and SIP registration
+# sox                    # Audio resampling — converts audio to 8 kHz mono for telephony
+# python3-venv           # Python virtual environment — isolates project dependencies
+
+# ---- Voice / Model Files (VM) --------------------------------------------
+# Piper voice: en_US-lessac-medium   # English neural voice (downloaded separately)
+# Whisper model: tiny                # Lightweight speech-to-text model (~300 MB)
+# espeak-ng                          # Fallback TTS for Kiswahili (no Piper voice exists)
+
+# ---- Ollama (Windows Host) -----------------------------------------------
+# ollama v0.5+           # Local LLM server — simplifies & translates civic text
+# Model: llama3.2:1b     # Small model (~1B params) chosen for limited RAM
+
+# ---- Softphone (Any Device on Same LAN) ----------------------------------
+# Zoiper                  # SIP softphone — registers to Asterisk as extension 6001
+
+# ---- Firebase (Cloud) ----------------------------------------------------
+# Firestore               # NoSQL database — stores civic_content documents
+# Firebase Service Account # JSON key — authenticates the VM script to Firestore
+
+# ---- Asterisk Subsystems (Included with apt package) ---------------------
+# PJSIP                   # SIP stack — handles endpoint registration
+# app_playback            # Plays audio files to the caller
+# app_system              # Executes external scripts (our Python pipeline)
+# app_record              # Records caller speech for Whisper transcription
